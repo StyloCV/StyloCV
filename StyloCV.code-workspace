@@ -1,8 +1,25 @@
 {
-	"folders": [
-		{
-			"path": "."
-		}
-	],
-	"settings": {}
+  "folders": [
+    {
+      "name": "planning_docs",
+      "path": "./docs"
+    },
+    {
+      "name": "cv_model",
+      "path": "./pkgs/cv_model"
+    },
+    {
+      "name": "pkg_docs",
+      "path": "./pkgs/docs"
+    },
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "editor.rulers": [95],
+    "pylint.importStrategy": "fromEnvironment",
+    "python.terminal.activateEnvironment": false,
+    "mypy-type-checker.importStrategy": "fromEnvironment"
+  }
 }

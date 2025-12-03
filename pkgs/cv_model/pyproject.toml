@@ -1,0 +1,62 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cv-model"
+description = ""
+version = "0.1.0"
+readme = "README.md"
+requires-python = ">=3.13"
+license = "MIT"
+license-files = []
+keywords = []
+classifiers = []
+dependencies = [
+    "email-validator>=2.3.0",
+    "jinja2",
+ "pydantic",
+ "typst",
+]
+
+[dependency-groups]
+tests = ["pytest", "pytest-cov"]
+docs = ["mkdocs"]
+
+[tool.pytest]
+minversion = "9.0"
+addopts = [
+    "--cov=src/cv_model",
+    "--cov-report=html:tests/.coverage_report/html",
+    "--cov-report=xml:tests/.coverage_report/coverage.xml",
+    "--no-cov-on-fail",
+]
+testpaths = ["tests"]
+
+[tool.ruff]
+exclude = []
+line-length = 95
+indent-width = 4
+
+[tool.isort]
+profile = "black"
+line_length = 95
+indent = 4
+
+[tool.ruff.lint]
+ignore = []
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.hatch.build.targets.sdist]
+include = ["README.md", "LICENSE", "CHANGELOG.md", "*.typ", "*.py"]
+exclude = []
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cv_model"]
+include = ["*.typ", "*.py"]
+
+[tool.hatch.build.targets.wheel.sources]
+"src/cv_model" = "cv_model"

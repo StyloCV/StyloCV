@@ -1,0 +1,524 @@
+{
+  "$schema": "https://raw.githubusercontent.com/austinyu/cv-model/refs/heads/main/schemas/resume_schema.json",
+  "basics": {
+    "name": "Austin Yu",
+    "label": "Software Engineer",
+    "email": "yuxm.austin1023@gmail.com",
+    "phone": "+1 (xxx) xxx-xxxx",
+    "url": "https://www.google.com/",
+    "summary": "A dedicated software engineer with experience in cloud services, AI, and autonomous systems.",
+    "location": {
+      "address": "",
+      "postalCode": "",
+      "city": "Bay Area",
+      "countryCode": "US",
+      "region": "CA"
+    },
+    "profiles": [
+      {
+        "network": "GitHub",
+        "username": "austinyu",
+        "url": "https://github.com/austinyu"
+      },
+      {
+        "network": "LinkedIn",
+        "username": "xinmiao-yu-619128174",
+        "url": "https://linkedin.com/in/xinmiao-yu-619128174"
+      }
+    ]
+  },
+  "work": [
+    {
+      "name": "Microsoft",
+      "location": "Redmond, WA",
+      "description": "Azure Cloud Services Team",
+      "position": "Software Engineer Intern",
+      "url": "https://microsoft.com/",
+      "startDate": "2023-05-15",
+      "endDate": "2023-08-15",
+      "summary": "Developed solutions for Azure cloud services and improved performance metrics.",
+      "highlights": [
+        "Developed a distributed caching solution for Azure Functions, reducing cold start latency by **30%** and improving overall performance for serverless applications.",
+        "Implemented a monitoring dashboard using `Power BI` to visualize key performance metrics, enabling proactive issue detection and resolution.",
+        "Collaborated with a team of engineers to refactor *legacy code*, improving maintainability and reducing technical debt by 25%.",
+        "Contributed to the design and development of a new [API gateway](https://azure.microsoft.com/services/api-management/), enhancing scalability and security for cloud-based applications.",
+        "Presented project outcomes to senior engineers and received **commendation** for delivering impactful solutions under tight deadlines."
+      ],
+      "highlights_typst": [
+        "Developed a distributed caching solution for Azure Functions, reducing cold start latency by *30%* and improving overall performance for serverless applications.",
+        "Implemented a monitoring dashboard using `Power BI` to visualize key performance metrics, enabling proactive issue detection and resolution.",
+        "Collaborated with a team of engineers to refactor _legacy code_, improving maintainability and reducing technical debt by 25%.",
+        "Contributed to the design and development of a new #link(\"https://azure.microsoft.com/services/api-management/\")[API gateway], enhancing scalability and security for cloud-based applications.",
+        "Presented project outcomes to senior engineers and received *commendation* for delivering impactful solutions under tight deadlines."
+      ]
+    },
+    {
+      "name": "Amazon",
+      "location": "Seattle, WA",
+      "description": "Alexa Smart Home Team",
+      "position": "Software Development Engineer Intern",
+      "url": "https://amazon.com/",
+      "startDate": "2022-06-01",
+      "endDate": "2022-09-01",
+      "summary": "",
+      "highlights": [
+        "Designed and implemented a feature to integrate third-party smart home devices with Alexa, increasing compatibility by 20%.",
+        "Optimized voice recognition algorithms, reducing error rates by **15%** and improving *user satisfaction*.",
+        "Developed automated ***testing frameworks*** with `pytest` to ensure the reliability of new integrations, achieving 90% test coverage.",
+        "Worked closely with product managers to define [feature requirements](https://developer.amazon.com/alexa) and deliver a seamless user experience.",
+        "Participated in **code reviews** and contributed to *team-wide best practices* for software development."
+      ],
+      "highlights_typst": [
+        "Designed and implemented a feature to integrate third-party smart home devices with Alexa, increasing compatibility by 20%.",
+        "Optimized voice recognition algorithms, reducing error rates by *15%* and improving _user satisfaction_.",
+        "Developed automated *_testing frameworks_* with `pytest` to ensure the reliability of new integrations, achieving 90% test coverage.",
+        "Worked closely with product managers to define #link(\"https://developer.amazon.com/alexa\")[feature requirements] and deliver a seamless user experience.",
+        "Participated in *code reviews* and contributed to _team-wide best practices_ for software development."
+      ]
+    },
+    {
+      "name": "Tesla",
+      "location": "Palo Alto, CA",
+      "description": "Autopilot Software Team",
+      "position": "Software Engineer Intern",
+      "url": "https://tesla.com/",
+      "startDate": "2021-06-01",
+      "endDate": "2021-08-31",
+      "summary": "",
+      "highlights": [
+        "Developed and tested computer vision algorithms for lane detection, improving accuracy by **25%** in *challenging driving conditions*.",
+        "Enhanced the performance of real-time object detection systems using `TensorFlow`, reducing processing latency by 10%.",
+        "Collaborated with hardware engineers to optimize sensor data processing pipelines for [autonomous vehicles](https://www.tesla.com/autopilot).",
+        "Conducted **extensive simulations** to validate new features, ensuring *compliance with safety standards*.",
+        "Documented technical findings and contributed to research papers on advancements in autonomous driving technology."
+      ],
+      "highlights_typst": [
+        "Developed and tested computer vision algorithms for lane detection, improving accuracy by *25%* in _challenging driving conditions_.",
+        "Enhanced the performance of real-time object detection systems using `TensorFlow`, reducing processing latency by 10%.",
+        "Collaborated with hardware engineers to optimize sensor data processing pipelines for #link(\"https://www.tesla.com/autopilot\")[autonomous vehicles].",
+        "Conducted *extensive simulations* to validate new features, ensuring _compliance with safety standards_.",
+        "Documented technical findings and contributed to research papers on advancements in autonomous driving technology."
+      ]
+    }
+  ],
+  "volunteer": [
+    {
+      "organization": "Bay Area Homeless Shelter",
+      "position": "Volunteer Coordinator",
+      "url": "https://bahs.org/",
+      "startDate": "2023-01-01",
+      "endDate": "2023-05-01",
+      "summary": "Coordinated volunteer efforts to support homeless individuals in the Bay Area, providing essential services and resources.",
+      "highlights": [
+        "Managed a team of 20+ volunteers to organize weekly meal services",
+        "Collaborated with a team of volunteers to sort and package food donations, ensuring efficient distribution to partner agencies.",
+        "Participated in community education initiatives, promoting awareness of food insecurity and available resources."
+      ],
+      "location": "Bay Area, CA",
+      "highlights_typst": [
+        "Managed a team of 20+ volunteers to organize weekly meal services",
+        "Collaborated with a team of volunteers to sort and package food donations, ensuring efficient distribution to partner agencies.",
+        "Participated in community education initiatives, promoting awareness of food insecurity and available resources."
+      ]
+    },
+    {
+      "organization": "Stanford University",
+      "position": "Volunteer Tutor",
+      "url": "https://stanford.edu/",
+      "startDate": "2023-06-01",
+      "endDate": "2023-09-01",
+      "summary": "Provided tutoring support to high school students in mathematics and science subjects, fostering academic growth and confidence.",
+      "highlights": [
+        "Developed personalized lesson plans and study materials to address individual student needs.",
+        "Facilitated group study sessions, encouraging collaboration and peer learning.",
+        "Received positive feedback from students and parents for effective teaching methods and dedication to student success."
+      ],
+      "location": "Stanford, CA",
+      "highlights_typst": [
+        "Developed personalized lesson plans and study materials to address individual student needs.",
+        "Facilitated group study sessions, encouraging collaboration and peer learning.",
+        "Received positive feedback from students and parents for effective teaching methods and dedication to student success."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Stanford University",
+      "location": "Stanford, CA",
+      "url": "https://stanford.edu/",
+      "area": "Physics and Computer Science",
+      "studyType": "Bachelor of Science",
+      "startDate": "2019-09-01",
+      "endDate": "2023-06-01",
+      "score": "3.9/4.0",
+      "courses": [
+        "Data Structures",
+        "Algorithms",
+        "Operating Systems",
+        "Computer Networks",
+        "Quantum Mechanics",
+        "Linear Algebra",
+        "Machine Learning",
+        "Multivariable Calculus"
+      ]
+    },
+    {
+      "institution": "University of California, Berkeley",
+      "location": "Berkeley, CA",
+      "url": "https://berkeley.edu/",
+      "area": "Computer Science",
+      "studyType": "Master of Science",
+      "startDate": "2023-08-01",
+      "endDate": "2025-05-01",
+      "score": "4.0/4.0",
+      "courses": [
+        "Advanced Machine Learning",
+        "Distributed Systems",
+        "Cryptography",
+        "Artificial Intelligence",
+        "Database Systems",
+        "Convex Optimization",
+        "Natural Language Processing",
+        "Computer Vision"
+      ]
+    }
+  ],
+  "awards": [
+    {
+      "title": "Best Student Award",
+      "url": "https://stanford.edu/",
+      "date": "2023-05-01",
+      "awarder": "Stanford University",
+      "summary": ""
+    },
+    {
+      "title": "Dean's List",
+      "url": "https://stanford.edu/",
+      "date": "2023-05-01",
+      "awarder": "Stanford University",
+      "summary": "Achieved Dean's List status for maintaining a GPA of 3.9 or higher."
+    },
+    {
+      "title": "Outstanding Research Assistant",
+      "url": "https://stanford.edu/",
+      "date": "2023-05-01",
+      "awarder": "",
+      "summary": "Recognized for exceptional contributions to research projects in the Physics and Computer Science departments."
+    },
+    {
+      "title": "Best Paper Award",
+      "url": "https://berkeley.edu/",
+      "date": "2023-05-01",
+      "awarder": "University of California, Berkeley",
+      "summary": "Received Best Paper Award at the UC Berkeley Graduate Research Symposium."
+    }
+  ],
+  "certificates": [
+    {
+      "name": "AWS Certified Solutions Architect",
+      "date": "2023-05-01",
+      "url": "https://aws.amazon.com/certification/certified-solutions-architect-associate/",
+      "issuer": ""
+    },
+    {
+      "name": "Google Cloud Professional Data Engineer",
+      "date": "2023-05-01",
+      "url": "https://cloud.google.com/certification/data-engineer/",
+      "issuer": "Google Cloud"
+    },
+    {
+      "name": "Microsoft Certified: Azure Fundamentals",
+      "date": "2023-05-01",
+      "url": "https://learn.microsoft.com/en-us/certifications/azure-fundamentals/",
+      "issuer": "Microsoft"
+    },
+    {
+      "name": "Certified Kubernetes Administrator (CKA)",
+      "date": "2023-05-01",
+      "url": "https://www.cncf.io/certification/cka/",
+      "issuer": "Linux Foundation"
+    },
+    {
+      "name": "Certified Ethical Hacker (CEH)",
+      "date": "2023-05-01",
+      "url": "https://www.eccouncil.org/programs/certified-ethical-hacker-ceh/",
+      "issuer": ""
+    }
+  ],
+  "publications": [
+    {
+      "name": "Understanding Quantum Computing",
+      "publisher": "Springer",
+      "releaseDate": "2023-05-01",
+      "url": "https://arxiv.org/abs/quantum-computing",
+      "summary": "A comprehensive overview of quantum computing principles and applications."
+    },
+    {
+      "name": "Machine Learning for Beginners",
+      "publisher": "O'Reilly Media",
+      "releaseDate": "2023-05-01",
+      "url": "https://oreilly.com/machine-learning-beginners",
+      "summary": ""
+    },
+    {
+      "name": "Advanced Algorithms in Python",
+      "publisher": "Packt Publishing",
+      "releaseDate": "2023-05-01",
+      "url": "https://packt.com/advanced-algorithms-python",
+      "summary": "A deep dive into advanced algorithms and data structures using Python."
+    },
+    {
+      "name": "Data Science Handbook",
+      "publisher": "Springer",
+      "releaseDate": "2023-05-01",
+      "url": "https://springer.com/data-science-handbook",
+      "summary": "A practical guide to data science methodologies and tools."
+    }
+  ],
+  "skills": [
+    {
+      "name": "Web Development",
+      "level": "Master",
+      "keywords": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "React",
+        "Node.js",
+        "Express",
+        "Django",
+        "Flask",
+        "Ruby on Rails",
+        "RESTful APIs"
+      ]
+    },
+    {
+      "name": "Machine Learning",
+      "level": "Intermediate",
+      "keywords": [
+        "Python",
+        "TensorFlow",
+        "Keras",
+        "PyTorch",
+        "Scikit-learn",
+        "Natural Language Processing",
+        "Computer Vision"
+      ]
+    },
+    {
+      "name": "Cloud Computing",
+      "level": "Intermediate",
+      "keywords": [
+        "AWS",
+        "Azure",
+        "Google Cloud Platform",
+        "Docker",
+        "Kubernetes",
+        "Terraform",
+        "CI/CD"
+      ]
+    }
+  ],
+  "languages": [
+    {
+      "language": "English",
+      "fluency": "Native speaker"
+    },
+    {
+      "language": "Spanish",
+      "fluency": "Conversational"
+    },
+    {
+      "language": "Mandarin",
+      "fluency": "Basic"
+    },
+    {
+      "language": "French",
+      "fluency": "Basic"
+    }
+  ],
+  "interests": [
+    {
+      "name": "Artificial Intelligence",
+      "keywords": [
+        "Machine Learning",
+        "Deep Learning",
+        "Natural Language Processing",
+        "Computer Vision",
+        "Reinforcement Learning"
+      ]
+    },
+    {
+      "name": "Quantum Computing",
+      "keywords": [
+        "Quantum Algorithms",
+        "Quantum Cryptography",
+        "Quantum Machine Learning",
+        "Quantum Information Theory"
+      ]
+    },
+    {
+      "name": "Software Development",
+      "keywords": [
+        "Agile Methodologies",
+        "Version Control (Git)",
+        "Continuous Integration/Continuous Deployment (CI/CD)",
+        "Test-Driven Development (TDD)",
+        "Code Review"
+      ]
+    }
+  ],
+  "references": [
+    {
+      "name": "Timothy Cook",
+      "reference": "Joe blogs was a great employee, who turned up to work at least once a week. He exceeded my expectations when it came to doing nothing."
+    },
+    {
+      "name": "Bill Gates",
+      "reference": "Joe blogs was a great employee, who turned up to work at least once a week. He exceeded my expectations when it came to doing nothing."
+    },
+    {
+      "name": "Elon Musk",
+      "reference": "Joe blogs was a great employee, who turned up to work at least once a week. He exceeded my expectations when it came to doing nothing."
+    }
+  ],
+  "projects": [
+    {
+      "name": "Hyperschedule",
+      "description": "Developed and maintained an open-source scheduling tool used by students across the Claremont Consortium, leveraging TypeScript, React, and MongoDB.",
+      "highlights": [
+        "Implemented new features such as course filtering and schedule sharing, improving user experience and engagement.",
+        "Collaborated with a team of contributors to address bugs and optimize performance, reducing load times by 40%.",
+        "Coordinated with college administrators to ensure accurate and timely release of course data."
+      ],
+      "keywords": [
+        "React",
+        "TypeScript",
+        "MongoDB",
+        "Git"
+      ],
+      "startDate": "2022-01-01",
+      "endDate": "Present",
+      "url": "https://hyperschedule.io/",
+      "roles": [
+        "Individual Contributor",
+        "Maintainer"
+      ],
+      "entity": "Claremont Colleges",
+      "type": "application",
+      "source_code": "https://github.com/hyperschedule",
+      "highlights_typst": [
+        "Implemented new features such as course filtering and schedule sharing, improving user experience and engagement.",
+        "Collaborated with a team of contributors to address bugs and optimize performance, reducing load times by 40%.",
+        "Coordinated with college administrators to ensure accurate and timely release of course data."
+      ]
+    },
+    {
+      "name": "Claremont Colleges Course Registration",
+      "description": "Contributed to the development of a course registration platform for the Claremont Colleges, streamlining the enrollment process for thousands of students.",
+      "highlights": [
+        "Designed and implemented a user-friendly interface for course selection, increasing adoption rates by 25%.",
+        "Optimized backend systems to handle peak traffic during registration periods, ensuring system stability.",
+        "Provided technical support and documentation to assist users and administrators with platform usage."
+      ],
+      "keywords": [
+        "React",
+        "Node.js",
+        "PostgreSQL",
+        "Git"
+      ],
+      "startDate": "2021-09-01",
+      "endDate": "2022-12-01",
+      "url": "https://courses.claremont.edu/",
+      "roles": [
+        "Individual Contributor",
+        "Maintainer"
+      ],
+      "entity": "Claremont Colleges",
+      "type": "application",
+      "source_code": "https://github.com/claremont-colleges",
+      "highlights_typst": [
+        "Designed and implemented a user-friendly interface for course selection, increasing adoption rates by 25%.",
+        "Optimized backend systems to handle peak traffic during registration periods, ensuring system stability.",
+        "Provided technical support and documentation to assist users and administrators with platform usage."
+      ]
+    }
+  ],
+  "custom_sections": [
+    {
+      "title": "Programming Languages",
+      "highlights": [
+        {
+          "summary": "Languages",
+          "description": "**Python**, *Java*, `C++`, [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript), and ***TypeScript***"
+        },
+        {
+          "summary": "Frameworks",
+          "description": "*React*, **Node.js**, `Express`, [Flask](https://flask.palletsprojects.com/), and ***Django***"
+        },
+        {
+          "summary": "Databases",
+          "description": "**MySQL**, *MongoDB*, and `PostgreSQL` with [advanced indexing](https://www.postgresql.org/docs/current/indexes.html)"
+        },
+        {
+          "summary": "Tools",
+          "description": "`Git` for **version control**, *Docker* containers, ***Kubernetes*** orchestration, and [AWS cloud services](https://aws.amazon.com/)"
+        }
+      ],
+      "highlights_typst": [
+        {
+          "summary": "Languages",
+          "description": "*Python*, _Java_, `C++`, #link(\"https://developer.mozilla.org/en-US/docs/Web/JavaScript\")[JavaScript], and *_TypeScript_*"
+        },
+        {
+          "summary": "Frameworks",
+          "description": "_React_, *Node.js*, `Express`, #link(\"https://flask.palletsprojects.com/\")[Flask], and *_Django_*"
+        },
+        {
+          "summary": "Databases",
+          "description": "*MySQL*, _MongoDB_, and `PostgreSQL` with #link(\"https://www.postgresql.org/docs/current/indexes.html\")[advanced indexing]"
+        },
+        {
+          "summary": "Tools",
+          "description": "`Git` for *version control*, _Docker_ containers, *_Kubernetes_* orchestration, and #link(\"https://aws.amazon.com/\")[AWS cloud services]"
+        }
+      ]
+    },
+    {
+      "title": "Skills",
+      "highlights": [
+        {
+          "summary": "Soft Skills",
+          "description": "**Teamwork**, *Communication*, `Problem Solving`, and [Time Management](https://en.wikipedia.org/wiki/Time_management) ***techniques***"
+        },
+        {
+          "summary": "Technical Skills",
+          "description": "*Data Structures*, **Algorithms**, `Software Development` methodologies, and [Web Development](https://developer.mozilla.org/en-US/docs/Web) ***best practices***"
+        },
+        {
+          "summary": "Languages",
+          "description": "**English** (*Fluent*), `Spanish` (Conversational), and [Mandarin](https://en.wikipedia.org/wiki/Mandarin_Chinese) (***Basic***)"
+        }
+      ],
+      "highlights_typst": [
+        {
+          "summary": "Soft Skills",
+          "description": "*Teamwork*, _Communication_, `Problem Solving`, and #link(\"https://en.wikipedia.org/wiki/Time_management\")[Time Management] *_techniques_*"
+        },
+        {
+          "summary": "Technical Skills",
+          "description": "_Data Structures_, *Algorithms*, `Software Development` methodologies, and #link(\"https://developer.mozilla.org/en-US/docs/Web\")[Web Development] *_best practices_*"
+        },
+        {
+          "summary": "Languages",
+          "description": "*English* (_Fluent_), `Spanish` (Conversational), and #link(\"https://en.wikipedia.org/wiki/Mandarin_Chinese\")[Mandarin] (*_Basic_*)"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "canonical": "https://example.com/resume.json",
+    "version": "v1.0.0",
+    "lastModified": "2025-12-04"
+  }
+}
