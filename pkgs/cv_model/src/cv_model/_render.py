@@ -1,3 +1,4 @@
+import os
 import tempfile
 from pathlib import Path
 from typing import Literal, overload
@@ -112,13 +113,15 @@ def generate(
         _model2typ(model, template_name, output_path, render_ctx)
         return None
 
-    # Use a temporary file to avoid race conditions and simplify cleanup
-    with tempfile.NamedTemporaryFile(
-        mode="w+", suffix=".typ", delete=False, encoding="utf-8"
-    ) as temp_file:
-        temp_path = Path(temp_file.name)
-
+    # Use mkstemp for better cross-platform compatibility
+    # This avoids potential file locking issues on Windows with NamedTemporaryFile
+    fd, temp_file_path = tempfile.mkstemp(suffix=".typ", text=True)
+    temp_path = Path(temp_file_path)
+    
     try:
+        # Close the file descriptor since _model2typ will open the file itself
+        os.close(fd)
+        
         _model2typ(model, template_name, temp_path, render_ctx)
         # Compile to memory
         result = typst.compile(str(temp_path), format=output_format)
@@ -134,4 +137,4 @@ def generate(
         return result
     finally:
         # Clean up the temporary file
-        temp_path.unlink()
+        temp_path.unlink(missing_ok=True)
