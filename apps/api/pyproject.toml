@@ -1,0 +1,27 @@
+[project]
+name = "api"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = ["cv-model", "fastapi[standard]>=0.124.0"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv.sources]
+cv-model = { path = "../../pkgs/cv_model/", editable = true }
+
+[dependency-groups]
+tests = ["pytest", "pytest-cov"]
+
+[tool.pytest]
+minversion = "9.0"
+addopts = [
+    "--cov=src/api",
+    "--cov-report=html:tests/.coverage_report/html",
+    "--cov-report=xml:tests/.coverage_report/coverage.xml",
+    "--no-cov-on-fail",
+]
+testpaths = ["tests"]

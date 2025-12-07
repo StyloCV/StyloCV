@@ -1,6 +1,6 @@
 {
   "folders": [
-      {
+    {
       "name": "ci/cd",
       "path": "./.github"
     },
@@ -15,6 +15,10 @@
     {
       "name": "pkg_docs",
       "path": "./pkgs/docs"
+    },
+    {
+      "name": "backend",
+      "path": "./apps/api"
     },
     {
       "path": "."

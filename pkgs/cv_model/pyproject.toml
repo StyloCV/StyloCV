@@ -21,7 +21,6 @@ dependencies = [
 
 [dependency-groups]
 tests = ["pytest", "pytest-cov"]
-docs = ["mkdocs"]
 
 [tool.pytest]
 minversion = "9.0"
