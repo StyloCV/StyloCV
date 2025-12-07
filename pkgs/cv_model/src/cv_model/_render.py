@@ -117,10 +117,12 @@ def generate(
     # This avoids potential file locking issues on Windows with NamedTemporaryFile
     fd, temp_file_path = tempfile.mkstemp(suffix=".typ", text=True)
     temp_path = Path(temp_file_path)
+    fd_closed = False
     
     try:
         # Close the file descriptor since _model2typ will open the file itself
         os.close(fd)
+        fd_closed = True
         
         _model2typ(model, template_name, temp_path, render_ctx)
         # Compile to memory
@@ -136,11 +138,11 @@ def generate(
         # Otherwise, return the bytes
         return result
     finally:
-        # Ensure file descriptor is closed even if os.close(fd) was not reached
-        try:
-            os.close(fd)
-        except OSError:
-            # File descriptor already closed
-            pass
+        # Ensure file descriptor is closed even if an exception occurred before os.close
+        if not fd_closed:
+            try:
+                os.close(fd)
+            except OSError:
+                pass
         # Clean up the temporary file
         temp_path.unlink(missing_ok=True)
