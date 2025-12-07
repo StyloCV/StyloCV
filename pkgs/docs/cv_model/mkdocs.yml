@@ -1,0 +1,9 @@
+site_name: cv_model
+
+nav:
+  - About: index.md
+  - Usage:
+      - Overview: usage/index.md
+  - API:
+      - Models: api/models.md
+      - API: api/api.md

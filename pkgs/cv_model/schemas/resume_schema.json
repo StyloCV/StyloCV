@@ -1,0 +1,939 @@
+{
+  "$defs": {
+    "Award": {
+      "properties": {
+        "title": {
+          "default": "",
+          "description": "e.g. One of the 100 greatest minds of the century",
+          "title": "Title",
+          "type": "string"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "URL (as per RFC 3986) to the award or recognition",
+          "title": "Url"
+        },
+        "date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "const": "Present",
+              "type": "string"
+            }
+          ],
+          "default": "Present",
+          "description": "Date in ISO 8601 format, e.g. YYYY-MM-DD or `Present`",
+          "title": "Date"
+        },
+        "awarder": {
+          "default": "",
+          "description": "the organization that awarded you e.g. Time Magazine",
+          "title": "Awarder",
+          "type": "string"
+        },
+        "summary": {
+          "default": "",
+          "title": "Summary",
+          "type": "string"
+        }
+      },
+      "title": "Award",
+      "type": "object"
+    },
+    "Basics": {
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "label": {
+          "description": "e.g. Web Developer",
+          "title": "Label",
+          "type": "string"
+        },
+        "email": {
+          "format": "email",
+          "title": "Email",
+          "type": "string"
+        },
+        "phone": {
+          "description": "Phone numbers are stored as strings so use any format you like, e.g. 712-117-2923",
+          "title": "Phone",
+          "type": "string"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "URL to your website, e.g. personal homepage",
+          "title": "Url"
+        },
+        "summary": {
+          "default": "",
+          "description": "Write a short 2-3 sentence biography about yourself",
+          "title": "Summary",
+          "type": "string"
+        },
+        "location": {
+          "$ref": "#/$defs/Location"
+        },
+        "profiles": {
+          "description": "A list of social media profiles, e.g. Facebook, Twitter, LinkedIn",
+          "items": {
+            "$ref": "#/$defs/Profiles"
+          },
+          "title": "Profiles",
+          "type": "array"
+        }
+      },
+      "required": [
+        "name",
+        "label",
+        "email",
+        "phone",
+        "location"
+      ],
+      "title": "Basics",
+      "type": "object"
+    },
+    "Certificate": {
+      "properties": {
+        "name": {
+          "default": "",
+          "description": "e.g. AWS Certified Solutions Architect",
+          "title": "Name",
+          "type": "string"
+        },
+        "date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "const": "Present",
+              "type": "string"
+            }
+          ],
+          "default": "Present",
+          "description": "Date in ISO 8601 format, e.g. YYYY-MM-DD or `Present`",
+          "title": "Date"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "URL (as per RFC 3986) to the certificate or recognition",
+          "title": "Url"
+        },
+        "issuer": {
+          "default": "",
+          "description": "the organization that issued the certificate e.g. CNCF",
+          "title": "Issuer",
+          "type": "string"
+        }
+      },
+      "title": "Certificate",
+      "type": "object"
+    },
+    "CustomSection": {
+      "properties": {
+        "title": {
+          "default": "",
+          "title": "Title",
+          "type": "string"
+        },
+        "highlights": {
+          "description": "Specify multiple highlights. e.g. `Implemented a new feature` or `Worked on a new project`",
+          "items": {
+            "$ref": "#/$defs/Highlight"
+          },
+          "title": "Highlights",
+          "type": "array"
+        }
+      },
+      "title": "CustomSection",
+      "type": "object"
+    },
+    "Education": {
+      "properties": {
+        "institution": {
+          "default": "",
+          "description": "University or college name",
+          "title": "Institution",
+          "type": "string"
+        },
+        "location": {
+          "default": "",
+          "title": "Location",
+          "type": "string"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "URL to the university or college",
+          "title": "Url"
+        },
+        "area": {
+          "default": "",
+          "description": "Majors or minors. e.g. `Computer Science and Physics`",
+          "title": "Area",
+          "type": "string"
+        },
+        "studyType": {
+          "default": "",
+          "description": "e.g. `Bachelor of Science`, `Master of Arts`, `PhD`, `High School`",
+          "title": "Studytype",
+          "type": "string"
+        },
+        "startDate": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "const": "Present",
+              "type": "string"
+            }
+          ],
+          "default": "Present",
+          "description": "Date in ISO 8601 format, e.g. YYYY-MM-DD or `Present`",
+          "title": "Startdate"
+        },
+        "endDate": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "const": "Present",
+              "type": "string"
+            }
+          ],
+          "default": "Present",
+          "description": "Date in ISO 8601 format, e.g. YYYY-MM-DD or `Present`",
+          "title": "Enddate"
+        },
+        "score": {
+          "default": "",
+          "description": "Grade point average, e.g. 3.67/4.0. ",
+          "title": "Score",
+          "type": "string"
+        },
+        "courses": {
+          "description": "List notable courses/subjects. e.g. `Data Structures`, `Algorithms`",
+          "items": {
+            "type": "string"
+          },
+          "title": "Courses",
+          "type": "array"
+        }
+      },
+      "title": "Education",
+      "type": "object"
+    },
+    "Highlight": {
+      "properties": {
+        "summary": {
+          "default": "",
+          "description": "A short summary of the highlight.",
+          "title": "Summary",
+          "type": "string"
+        },
+        "description": {
+          "default": "",
+          "description": "A detailed description of the highlight. e.g. `Developed a new feature that allows users to...`",
+          "title": "Description",
+          "type": "string"
+        }
+      },
+      "title": "Highlight",
+      "type": "object"
+    },
+    "Interest": {
+      "properties": {
+        "name": {
+          "default": "",
+          "description": "e.g. Philosophy, Computer Science, Mathematics, Physics, etc.",
+          "title": "Name",
+          "type": "string"
+        },
+        "keywords": {
+          "description": "List some keywords pertaining to this interest. e.g. `Quantum Computing`, `Artificial Intelligence`, `Machine Learning`",
+          "items": {
+            "type": "string"
+          },
+          "title": "Keywords",
+          "type": "array"
+        }
+      },
+      "title": "Interest",
+      "type": "object"
+    },
+    "Language": {
+      "properties": {
+        "language": {
+          "default": "",
+          "description": "e.g. English, Spanish, Mandarin, French, German, etc. Use ISO 639-1 language codes where possible.",
+          "title": "Language",
+          "type": "string"
+        },
+        "fluency": {
+          "default": "",
+          "description": "e.g. `Fluent`, `Conversational`, `Basic`, `Native speaker`",
+          "title": "Fluency",
+          "type": "string"
+        }
+      },
+      "title": "Language",
+      "type": "object"
+    },
+    "Location": {
+      "properties": {
+        "address": {
+          "title": "Address",
+          "type": "string"
+        },
+        "postalCode": {
+          "title": "Postalcode",
+          "type": "string"
+        },
+        "city": {
+          "title": "City",
+          "type": "string"
+        },
+        "countryCode": {
+          "description": "ISO-3166-1 ALPHA-2, e.g. US, AU, IN",
+          "title": "Countrycode",
+          "type": "string"
+        },
+        "region": {
+          "description": "ISO-3166-2, e.g. CA, NY, ON, BC, etc.",
+          "title": "Region",
+          "type": "string"
+        }
+      },
+      "required": [
+        "address",
+        "postalCode",
+        "city",
+        "countryCode",
+        "region"
+      ],
+      "title": "Location",
+      "type": "object"
+    },
+    "Meta": {
+      "properties": {
+        "canonical": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Canonical"
+        },
+        "version": {
+          "default": "",
+          "title": "Version",
+          "type": "string"
+        },
+        "lastModified": {
+          "title": "Lastmodified",
+          "type": "string"
+        }
+      },
+      "required": [
+        "lastModified"
+      ],
+      "title": "Meta",
+      "type": "object"
+    },
+    "Profiles": {
+      "properties": {
+        "network": {
+          "description": "e.g. Facebook or Twitter",
+          "title": "Network",
+          "type": "string"
+        },
+        "username": {
+          "description": "a unique identifier for the user",
+          "title": "Username",
+          "type": "string"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "full URL to the profile",
+          "title": "Url"
+        }
+      },
+      "required": [
+        "network",
+        "username"
+      ],
+      "title": "Profiles",
+      "type": "object"
+    },
+    "Project": {
+      "properties": {
+        "name": {
+          "default": "",
+          "description": "Project name",
+          "title": "Name",
+          "type": "string"
+        },
+        "description": {
+          "default": "",
+          "description": "A short description of the project",
+          "title": "Description",
+          "type": "string"
+        },
+        "highlights": {
+          "description": "Specify multiple highlights. e.g. `Implemented a new feature` or `Worked on a new project`",
+          "items": {
+            "type": "string"
+          },
+          "title": "Highlights",
+          "type": "array"
+        },
+        "keywords": {
+          "description": "Specify special elements involved. e.g. `React`, `Node.js`",
+          "items": {
+            "type": "string"
+          },
+          "title": "Keywords",
+          "type": "array"
+        },
+        "startDate": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "const": "Present",
+              "type": "string"
+            }
+          ],
+          "default": "Present",
+          "description": "Date in ISO 8601 format, e.g. YYYY-MM-DD or `Present`",
+          "title": "Startdate"
+        },
+        "endDate": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "const": "Present",
+              "type": "string"
+            }
+          ],
+          "default": "Present",
+          "description": "Date in ISO 8601 format, e.g. YYYY-MM-DD or `Present`",
+          "title": "Enddate"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "URL to the project preview",
+          "title": "Url"
+        },
+        "roles": {
+          "description": "Specify your role on this project. e.g. `Individual Contributor`, `Maintainer` or `Team Lead`",
+          "items": {
+            "type": "string"
+          },
+          "title": "Roles",
+          "type": "array"
+        },
+        "entity": {
+          "default": "",
+          "description": "Specify the relevant company/entity affiliations. e.g. `Claremont Colleges`",
+          "title": "Entity",
+          "type": "string"
+        },
+        "type": {
+          "default": "",
+          "description": "Specify the relevant company/entity affiliations. e.g. `volunteering`, `presentation`, `talk`, `application`, `conference`",
+          "title": "Type",
+          "type": "string"
+        },
+        "source_code": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "URL (as per RFC 3986) to the source code repository. e.g. `GitHub`, `GitLab`",
+          "title": "Source Code"
+        }
+      },
+      "title": "Project",
+      "type": "object"
+    },
+    "Publication": {
+      "properties": {
+        "name": {
+          "default": "",
+          "description": "e.g. The World Wide Web",
+          "title": "Name",
+          "type": "string"
+        },
+        "publisher": {
+          "default": "",
+          "description": "e.g. IEEE, Computer Magazine",
+          "title": "Publisher",
+          "type": "string"
+        },
+        "releaseDate": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "const": "Present",
+              "type": "string"
+            }
+          ],
+          "default": "Present",
+          "description": "Date in ISO 8601 format, e.g. YYYY-MM-DD or `Present`",
+          "title": "Releasedate"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        },
+        "summary": {
+          "default": "",
+          "title": "Summary",
+          "type": "string"
+        }
+      },
+      "title": "Publication",
+      "type": "object"
+    },
+    "Reference": {
+      "properties": {
+        "name": {
+          "default": "",
+          "description": "e.g. Timothy Cook, Bill Gates, Elon Musk, etc.",
+          "title": "Name",
+          "type": "string"
+        },
+        "reference": {
+          "default": "",
+          "description": "e.g. Joe blogs was a great employee, who turned up to work at least once a week. He exceeded my expectations when it came to doing nothing.",
+          "title": "Reference",
+          "type": "string"
+        }
+      },
+      "title": "Reference",
+      "type": "object"
+    },
+    "Skill": {
+      "properties": {
+        "name": {
+          "default": "",
+          "description": "e.g. Web Development",
+          "title": "Name",
+          "type": "string"
+        },
+        "level": {
+          "default": "",
+          "description": "e.g. `Beginner`, `Intermediate`, `Advanced`, `Master`, `Expert`",
+          "title": "Level",
+          "type": "string"
+        },
+        "keywords": {
+          "description": "List some keywords pertaining to this skill. e.g. `HTML`, `CSS`, `JavaScript`",
+          "items": {
+            "type": "string"
+          },
+          "title": "Keywords",
+          "type": "array"
+        }
+      },
+      "title": "Skill",
+      "type": "object"
+    },
+    "Volunteer": {
+      "properties": {
+        "organization": {
+          "default": "",
+          "description": "Organization name e.g. SF SPCA",
+          "title": "Organization",
+          "type": "string"
+        },
+        "position": {
+          "default": "",
+          "description": "Position title e.g. Animal Care Volunteer",
+          "title": "Position",
+          "type": "string"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "URL to the organization",
+          "title": "Url"
+        },
+        "startDate": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "const": "Present",
+              "type": "string"
+            }
+          ],
+          "default": "Present",
+          "description": "Date in ISO 8601 format, e.g. YYYY-MM-DD or `Present`",
+          "title": "Startdate"
+        },
+        "endDate": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "const": "Present",
+              "type": "string"
+            }
+          ],
+          "default": "Present",
+          "description": "Date in ISO 8601 format, e.g. YYYY-MM-DD or `Present`",
+          "title": "Enddate"
+        },
+        "summary": {
+          "default": "",
+          "description": "Overview of responsibilities at the organization",
+          "title": "Summary",
+          "type": "string"
+        },
+        "highlights": {
+          "description": "Specify multiple highlights. e.g. `Implemented a new feature` or `Worked on a new project`",
+          "items": {
+            "type": "string"
+          },
+          "title": "Highlights",
+          "type": "array"
+        },
+        "location": {
+          "default": "",
+          "title": "Location",
+          "type": "string"
+        }
+      },
+      "title": "Volunteer",
+      "type": "object"
+    },
+    "Work": {
+      "properties": {
+        "name": {
+          "default": "",
+          "description": "Company name e.g. Facebook",
+          "title": "Name",
+          "type": "string"
+        },
+        "location": {
+          "default": "",
+          "description": "Location of the company. e.g. Menlo Park, CA.",
+          "title": "Location",
+          "type": "string"
+        },
+        "description": {
+          "default": "",
+          "description": "A short description of the company. e.g. Social Media Company",
+          "title": "Description",
+          "type": "string"
+        },
+        "position": {
+          "default": "",
+          "description": "Job title e.g. Software Engineer",
+          "title": "Position",
+          "type": "string"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "URL to the company website.",
+          "title": "Url"
+        },
+        "startDate": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "const": "Present",
+              "type": "string"
+            }
+          ],
+          "default": "Present",
+          "description": "Date in ISO 8601 format, e.g. YYYY-MM-DD or `Present`",
+          "title": "Startdate"
+        },
+        "endDate": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "const": "Present",
+              "type": "string"
+            }
+          ],
+          "default": "Present",
+          "description": "Date in ISO 8601 format, e.g. YYYY-MM-DD or `Present`",
+          "title": "Enddate"
+        },
+        "summary": {
+          "default": "",
+          "description": "Overview of responsibilities at the company",
+          "title": "Summary",
+          "type": "string"
+        },
+        "highlights": {
+          "description": "Specify multiple highlights. e.g. `Implemented a new feature` or `Worked on a new project`",
+          "items": {
+            "type": "string"
+          },
+          "title": "Highlights",
+          "type": "array"
+        }
+      },
+      "title": "Work",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "$schema": {
+      "default": "https://raw.githubusercontent.com/austinyu/cv-model/refs/heads/main/schemas/resume_schema.json",
+      "title": "$Schema",
+      "type": "string"
+    },
+    "basics": {
+      "$ref": "#/$defs/Basics",
+      "description": "The basics section of the resume."
+    },
+    "work": {
+      "description": "The work experience section of the resume.",
+      "items": {
+        "$ref": "#/$defs/Work"
+      },
+      "title": "Work",
+      "type": "array"
+    },
+    "volunteer": {
+      "description": "The volunteer experience section of the resume",
+      "items": {
+        "$ref": "#/$defs/Volunteer"
+      },
+      "title": "Volunteer",
+      "type": "array"
+    },
+    "education": {
+      "description": "The education section of the resume",
+      "items": {
+        "$ref": "#/$defs/Education"
+      },
+      "title": "Education",
+      "type": "array"
+    },
+    "awards": {
+      "description": "The awards section of the resume",
+      "items": {
+        "$ref": "#/$defs/Award"
+      },
+      "title": "Awards",
+      "type": "array"
+    },
+    "certificates": {
+      "description": "The certificates section of the resume",
+      "items": {
+        "$ref": "#/$defs/Certificate"
+      },
+      "title": "Certificates",
+      "type": "array"
+    },
+    "publications": {
+      "description": "The publications section of the resume",
+      "items": {
+        "$ref": "#/$defs/Publication"
+      },
+      "title": "Publications",
+      "type": "array"
+    },
+    "skills": {
+      "description": "The skills section of the resume",
+      "items": {
+        "$ref": "#/$defs/Skill"
+      },
+      "title": "Skills",
+      "type": "array"
+    },
+    "languages": {
+      "description": "The languages section of the resume",
+      "items": {
+        "$ref": "#/$defs/Language"
+      },
+      "title": "Languages",
+      "type": "array"
+    },
+    "interests": {
+      "description": "The interests section of the resume",
+      "items": {
+        "$ref": "#/$defs/Interest"
+      },
+      "title": "Interests",
+      "type": "array"
+    },
+    "references": {
+      "description": "The references section of the resume",
+      "items": {
+        "$ref": "#/$defs/Reference"
+      },
+      "title": "References",
+      "type": "array"
+    },
+    "projects": {
+      "description": "The projects section of the resume",
+      "items": {
+        "$ref": "#/$defs/Project"
+      },
+      "title": "Projects",
+      "type": "array"
+    },
+    "custom_sections": {
+      "description": "The custom sections of the resume",
+      "items": {
+        "$ref": "#/$defs/CustomSection"
+      },
+      "title": "Custom Sections",
+      "type": "array"
+    },
+    "meta": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Meta"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The meta section of the resume. This is optional."
+    }
+  },
+  "required": [
+    "basics"
+  ],
+  "title": "Resume",
+  "type": "object"
+}

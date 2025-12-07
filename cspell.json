@@ -1,0 +1,42 @@
+{
+  "version": "0.2",
+  "ignorePaths": [
+    ".pre-commit-config.yaml",
+    "ruff.toml",
+    ".mypy.ini",
+    ".pylintrc",
+    ".flake8",
+    ".git",
+    ".venv",
+    "pyrightconfig.json",
+    "*.code-workspace",
+    ".gitignore",
+    "mkdocs.yml"
+  ],
+  "dictionaryDefinitions": [],
+  "dictionaries": [],
+  "words": [
+    "addopts",
+    "cv-model",
+    "dists",
+    "endfor",
+    "isort",
+    "mkdocs",
+    "mypy",
+    "pkga",
+    "pydantic",
+    "pylint",
+    "pypa",
+    "pypi",
+    "pyright",
+    "pyrightconfig",
+    "pytest",
+    "releasenotes",
+    "sdist",
+    "typest",
+    "typst",
+    "venv"
+  ],
+  "ignoreWords": [],
+  "import": []
+}
