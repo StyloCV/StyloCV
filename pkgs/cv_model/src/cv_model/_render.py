@@ -136,5 +136,11 @@ def generate(
         # Otherwise, return the bytes
         return result
     finally:
+        # Ensure file descriptor is closed even if os.close(fd) was not reached
+        try:
+            os.close(fd)
+        except OSError:
+            # File descriptor already closed
+            pass
         # Clean up the temporary file
         temp_path.unlink(missing_ok=True)
