@@ -1,14 +1,12 @@
-import json
+import tempfile
 from pathlib import Path
-from typing import overload
+from typing import Literal, overload
 
 from jinja2 import Environment, FileSystemLoader
 
 import typst
 
 from . import _consts, _models
-
-__all__ = ["generate"]
 
 
 def _model2typ(
@@ -26,46 +24,14 @@ def _model2typ(
         f.write(template.render({"resume": model, "ctx": render_ctx}))
 
 
-def _model2output(
-    model: _models.Resume,
-    output_path: str | Path,
-    template_name: _consts.TemplateName,
-    render_ctx,
-) -> None:
-    custom_section_titles = [section.title for section in model.custom_sections]
-    for section_name in render_ctx.section_order:
-        if section_name in _models.DEFAULT_SECTIONS:
-            continue
-        if section_name not in custom_section_titles:
-            raise ValueError(
-                f"Section '{section_name}' not found in the resume model. "
-                + "Please check the section order."
-            )
-
-    _output_path = Path(output_path)
-    suffix = _output_path.name.split(".")[-1]
-    _output_path.parent.mkdir(parents=True, exist_ok=True)
-    if suffix == "typ":
-        _model2typ(model, template_name, _output_path, render_ctx)
-    elif suffix in ["pdf", "svg", "png", "html"]:
-        temp_path = _output_path.with_suffix(".typ")
-        _model2typ(model, template_name, temp_path, render_ctx)
-        try:
-            # File is already closed from the with block
-            typst.compile(str(temp_path), str(output_path), format=suffix)  # type: ignore
-        finally:
-            temp_path.unlink()
-    else:
-        raise ValueError(
-            "output_path must end with typ, pdf, svg, png, or html. "
-            + f"Got: {_output_path.name}"
-        )
+OutputFormat = Literal["pdf", "svg", "png", "html"]
 
 
 @overload
 def generate(
     src: _models.Resume,
     output_path: Path | str,
+    output_format: OutputFormat,
     template_name: _consts.TemplateName,
     render_ctx: _models.RenderCtx = _models.RenderCtx(),
 ) -> None: ...
@@ -73,8 +39,19 @@ def generate(
 
 @overload
 def generate(
-    src: str,
+    src: _models.Resume,
+    output_path: None,
+    output_format: OutputFormat,
+    template_name: _consts.TemplateName,
+    render_ctx: _models.RenderCtx = _models.RenderCtx(),
+) -> bytes: ...
+
+
+@overload
+def generate(
+    src: Path | str,
     output_path: Path | str,
+    output_format: OutputFormat,
     template_name: _consts.TemplateName,
     render_ctx: _models.RenderCtx = _models.RenderCtx(),
 ) -> None: ...
@@ -82,34 +59,39 @@ def generate(
 
 @overload
 def generate(
-    src: Path,
-    output_path: Path | str,
+    src: Path | str,
+    output_path: None,
+    output_format: OutputFormat,
     template_name: _consts.TemplateName,
     render_ctx: _models.RenderCtx = _models.RenderCtx(),
-) -> None: ...
+) -> bytes: ...
 
 
-def generate(src, output_path, template_name, render_ctx=_models.RenderCtx()) -> None:
-    """Generate a CV from a JSON string or file path.
+def generate(
+    src,
+    output_path,
+    output_format,
+    template_name,
+    render_ctx=_models.RenderCtx(),
+) -> bytes | None:
+    """Generates a CV document from a Resume model or JSON file.
+
     Args:
-        src: The source JSON string or file path.
-        output_path: The output file path. Could be one of the following formats:
-            - typ: Typst file
-            - pdf: PDF file
-            - svg: SVG file
-            - png: PNG file
-            - html: HTML file
-        template_name: The name of the template to use.
-        render_ctx: The render context to use.
+        src: The content source, either as a Resume model or a path to a JSON file.
+        output_path: The path to save the generated document, or None to return bytes.
+        output_format: The desired output format (typ, pdf, svg, png, html).
+        template_name: The name of the template to use. Defaults to "fantastic-cv".
+        render_ctx: The rendering context with additional styling options.
+
+    Returns:
+        Bytes of the generated document if output_path is None, otherwise None.
     """
-    if not isinstance(src, _models.Resume):
-        path_maybe = Path(src)
-        if not (set(str(src)) & set(["{", "["])) and path_maybe.exists():
-            return generate(
-                path_maybe.read_text(encoding="utf-8"), output_path, template_name, render_ctx
-            )
-        parsed_content = json.loads(src)
-        model = _models.Resume.model_validate(parsed_content)
+    if isinstance(src, (str, Path)):
+        _src = Path(src)
+        suffix = _src.name.split(".")[-1]
+        if suffix != "json":
+            raise ValueError("src must be a json file.")
+        model = _models.Resume.model_validate_json(_src.read_text(encoding="utf-8"))
     else:
         model = src
 
@@ -123,9 +105,33 @@ def generate(src, output_path, template_name, render_ctx=_models.RenderCtx()) ->
                 + "Please check the section order."
             )
 
-    _model2output(
-        model=model,
-        output_path=output_path,
-        template_name=template_name,
-        render_ctx=render_ctx,
-    )
+    if output_format == "typ":
+        # This case doesn't make sense for in-memory generation
+        if not output_path:
+            raise ValueError("output_path must be provided for typ output.")
+        _model2typ(model, template_name, output_path, render_ctx)
+        return None
+
+    # Use a temporary file to avoid race conditions and simplify cleanup
+    with tempfile.NamedTemporaryFile(
+        mode="w+", suffix=".typ", delete=False, encoding="utf-8"
+    ) as temp_file:
+        temp_path = Path(temp_file.name)
+
+    try:
+        _model2typ(model, template_name, temp_path, render_ctx)
+        # Compile to memory
+        result = typst.compile(str(temp_path), format=output_format)
+        if output_path is not None:
+            # If path is provided, write to it
+            if not str(output_path).endswith(output_format):
+                raise ValueError(
+                    f"output_path must end with {output_format}. Got: {output_path}"
+                )
+            Path(output_path).write_bytes(result)
+            return None
+        # Otherwise, return the bytes
+        return result
+    finally:
+        # Clean up the temporary file
+        temp_path.unlink()

@@ -1,0 +1,25 @@
+name: pr-cv-model
+
+on:
+  pull_request:
+    paths:
+      - 'pkgs/cv_model/**'
+      - '.github/workflows/cv-model-ci.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: pkgs/cv_model
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install uv
+      run: |
+        pip install uv
+
+    - name: Run tests
+      run: |
+        uv sync --all-groups --all-extras --frozen
+        uv run pytest
