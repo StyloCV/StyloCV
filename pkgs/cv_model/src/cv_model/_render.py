@@ -143,6 +143,7 @@ def generate(
             try:
                 os.close(fd)
             except OSError:
+                # Already closed or invalid file descriptor - safe to ignore
                 pass
         # Clean up the temporary file
         temp_path.unlink(missing_ok=True)
