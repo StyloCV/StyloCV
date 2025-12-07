@@ -1,5 +1,9 @@
 {
   "folders": [
+      {
+      "name": "ci/cd",
+      "path": "./.github"
+    },
     {
       "name": "planning_docs",
       "path": "./docs"
