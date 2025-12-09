@@ -1,5 +1,3 @@
-# Force re-lint
-
 from cv_model import RenderCtx, Resume, generate
 from fastapi import APIRouter, HTTPException, Response
 

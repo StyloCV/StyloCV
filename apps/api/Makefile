@@ -9,9 +9,6 @@ upgrade:
 build:
 	uv build
 
-test:
-	uv run pytest
-
 # http://127.0.0.1:8000/docs
 run:
 	uv run uvicorn api.main:app --reload
