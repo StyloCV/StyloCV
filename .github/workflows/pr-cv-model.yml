@@ -4,7 +4,7 @@ on:
   pull_request:
     paths:
       - 'pkgs/cv_model/**'
-      - '.github/workflows/cv-model-ci.yml'
+      - '.github/workflows/pr-cv-model.yml'
 
 jobs:
   test:

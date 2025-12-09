@@ -1,0 +1,25 @@
+name: pr-backend-api
+
+on:
+  pull_request:
+    paths:
+      - 'apps/api/**'
+      - '.github/workflows/pr-backend-api.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/api
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install uv
+      run: |
+        pip install uv
+
+    - name: Run tests
+      run: |
+        uv sync --all-groups --all-extras --frozen
+        uv run pytest
