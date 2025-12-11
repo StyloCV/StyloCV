@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -129,14 +127,30 @@ export function ResumeEditor() {
     // 1. Validate and parse the JSON
     try {
       resumeData = JSON.parse(jsonText);
-    } catch (e) {
-      setError("Invalid JSON format. Please check your input.");
-      return;
+    } catch (e: unknown) {
+      let message = "An unknown error occurred.";
+      if (
+        e &&
+        typeof e === "object" &&
+        "message" in e &&
+        typeof (e as any).message === "string"
+      ) {
+        message = (e as { message: string }).message;
+      }
+      setError(`Failed to render PDF: ${message}`);
     }
 
     // 2. Make the API call
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/v1/render", {
+      const apiBaseUrl = import.meta.env.VITE_API_URL;
+      if (!apiBaseUrl) {
+        setError(
+          "API URL is not configured. Please set VITE_API_URL in your environment.",
+        );
+        setPdfUrl(null);
+        return;
+      }
+      const response = await fetch(`${apiBaseUrl}/api/v1/render`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
