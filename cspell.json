@@ -27,6 +27,7 @@
     "pkgs",
     "pydantic",
     "pylint",
+    "Pyodide",
     "pypa",
     "pypi",
     "pyright",

@@ -12,12 +12,7 @@ license = "MIT"
 license-files = []
 keywords = []
 classifiers = []
-dependencies = [
-    "email-validator>=2.3.0",
-    "jinja2",
- "pydantic",
- "typst",
-]
+dependencies = ["jinja2", "pydantic", "typst"]
 
 [dependency-groups]
 tests = ["pytest", "pytest-cov"]
