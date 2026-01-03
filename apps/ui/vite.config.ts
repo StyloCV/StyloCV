@@ -8,20 +8,26 @@ import { normalizePath } from "vite";
 normalizePath(path.resolve(__dirname, "./foo")); // C:/project/foo
 // https://vite.dev/config/
 export default defineConfig({
+  base: "./",
   plugins: [
     react(),
     tailwindcss(),
     viteStaticCopy({
       targets: [
         {
-          src: normalizePath(path.resolve(__dirname, "node_modules/pyodide/*")),
+          src: normalizePath(
+            path.resolve(__dirname, "node_modules/pyodide/**"),
+          ),
           dest: "pyodide",
         },
         {
           src: normalizePath(
-            path.resolve(__dirname, "../../pkgs/cv_model/src/cv_model/*"),
+            path.resolve(
+              __dirname,
+              "node_modules/@myriaddreamin/typst-ts-web-compiler/pkg/**",
+            ),
           ),
-          dest: "cv_model",
+          dest: "typst-compiler",
         },
       ],
     }),

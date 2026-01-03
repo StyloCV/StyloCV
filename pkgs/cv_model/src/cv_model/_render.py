@@ -4,7 +4,12 @@ from typing import Literal, overload
 
 from jinja2 import Environment, FileSystemLoader
 
-import typst
+try:
+    import typst
+
+    TYPST_AVAILABLE = True
+except ImportError:
+    TYPST_AVAILABLE = False
 
 from . import _consts, _models
 
@@ -127,7 +132,11 @@ def generate(
 
         _model2typ(model, template_name, temp_path, render_ctx)
         # Compile to memory
-        result = typst.compile(str(temp_path), format=output_format)
+        if not TYPST_AVAILABLE:
+            raise ImportError(
+                "typst package is not available. Please install it to generate non-typ outputs."
+            )
+        result = typst.compile(str(temp_path), format=output_format)  # type: ignore
         if output_path is not None:
             # If path is provided, write to it
             _output_path = Path(output_path)

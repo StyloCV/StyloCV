@@ -7,6 +7,18 @@ settings:
 importers:
   .:
     dependencies:
+      "@myriaddreamin/typst-ts-renderer":
+        specifier: 0.7.0-rc2
+        version: 0.7.0-rc2
+      "@myriaddreamin/typst-ts-web-compiler":
+        specifier: 0.7.0-rc2
+        version: 0.7.0-rc2
+      "@myriaddreamin/typst.react":
+        specifier: 0.7.0-rc2
+        version: 0.7.0-rc2(@myriaddreamin/typst-ts-renderer@0.7.0-rc2)(@myriaddreamin/typst.ts@0.7.0-rc2(@myriaddreamin/typst-ts-renderer@0.7.0-rc2)(@myriaddreamin/typst-ts-web-compiler@0.7.0-rc2))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      "@myriaddreamin/typst.ts":
+        specifier: 0.7.0-rc2
+        version: 0.7.0-rc2(@myriaddreamin/typst-ts-renderer@0.7.0-rc2)(@myriaddreamin/typst-ts-web-compiler@0.7.0-rc2)
       "@radix-ui/react-slot":
         specifier: ^1.2.4
         version: 1.2.4(@types/react@19.2.7)(react@19.2.1)
@@ -579,6 +591,43 @@ packages:
       {
         integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==,
       }
+
+  "@myriaddreamin/typst-ts-renderer@0.7.0-rc2":
+    resolution:
+      {
+        integrity: sha512-god1tcb2YJDkQfA8gLGcAmykVGBpNKorqqDkXVy3InC18KRbsverJhlrHoONurNIU9JuIHoWjJ2D1ntpjPgzbA==,
+      }
+
+  "@myriaddreamin/typst-ts-web-compiler@0.7.0-rc2":
+    resolution:
+      {
+        integrity: sha512-WFO/ecKUfeclld5uDxyjgpnIafKpp2LrS6T1vY+CHaSxCm099AneAQIYFg+OtX+NbFpJsLGCBFSw/qppJJmBAw==,
+      }
+
+  "@myriaddreamin/typst.react@0.7.0-rc2":
+    resolution:
+      {
+        integrity: sha512-zohe8XXnCalRwY1HH10ZS9xKYaW3G31P2l6fA0eGTIHC5fHby/XIG5mBUqxM+9PxwYCbaFi/N+PMwqkhxrEoUA==,
+      }
+    peerDependencies:
+      "@myriaddreamin/typst-ts-renderer": ^0.7.0-rc2
+      "@myriaddreamin/typst.ts": ^0.7.0-rc2
+      react: ^17.0.1 || ^18.x || ^19.x
+      react-dom: ^17.0.1 || ^18.x || ^19.x
+
+  "@myriaddreamin/typst.ts@0.7.0-rc2":
+    resolution:
+      {
+        integrity: sha512-VM8JqsRcL3AEJ5cuPBn/YvnGTXK/BRPlxdGB2bR48Of/8OIGaPiunv2QfZBIMBBrtbTygUOtAY9BZvkS1AFqgA==,
+      }
+    peerDependencies:
+      "@myriaddreamin/typst-ts-renderer": ^0.7.0-rc2
+      "@myriaddreamin/typst-ts-web-compiler": ^0.7.0-rc2
+    peerDependenciesMeta:
+      "@myriaddreamin/typst-ts-renderer":
+        optional: true
+      "@myriaddreamin/typst-ts-web-compiler":
+        optional: true
 
   "@radix-ui/react-compose-refs@1.1.2":
     resolution:
@@ -1524,6 +1573,12 @@ packages:
     resolution:
       {
         integrity: sha512-6pEjquH3rqaI6cYAXYPcz9MS4rY6R4ngRgrgfDshRptUZIc3lw0MCIJIGDj9++mfySOuPTHB4nrSW99BCvOPIA==,
+      }
+
+  idb@7.1.1:
+    resolution:
+      {
+        integrity: sha512-gchesWBzyvGHRO9W8tzUWFDycow5gwjvFKfyV9FF32Y7F50yZMp7mP+T2mJIWFx49zicqyC4uefHM17o6xKIVQ==,
       }
 
   ignore@5.3.2:
@@ -2508,6 +2563,24 @@ snapshots:
       "@jridgewell/resolve-uri": 3.1.2
       "@jridgewell/sourcemap-codec": 1.5.5
 
+  "@myriaddreamin/typst-ts-renderer@0.7.0-rc2": {}
+
+  "@myriaddreamin/typst-ts-web-compiler@0.7.0-rc2": {}
+
+  "@myriaddreamin/typst.react@0.7.0-rc2(@myriaddreamin/typst-ts-renderer@0.7.0-rc2)(@myriaddreamin/typst.ts@0.7.0-rc2(@myriaddreamin/typst-ts-renderer@0.7.0-rc2)(@myriaddreamin/typst-ts-web-compiler@0.7.0-rc2))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)":
+    dependencies:
+      "@myriaddreamin/typst-ts-renderer": 0.7.0-rc2
+      "@myriaddreamin/typst.ts": 0.7.0-rc2(@myriaddreamin/typst-ts-renderer@0.7.0-rc2)(@myriaddreamin/typst-ts-web-compiler@0.7.0-rc2)
+      react: 19.2.1
+      react-dom: 19.2.1(react@19.2.1)
+
+  "@myriaddreamin/typst.ts@0.7.0-rc2(@myriaddreamin/typst-ts-renderer@0.7.0-rc2)(@myriaddreamin/typst-ts-web-compiler@0.7.0-rc2)":
+    dependencies:
+      idb: 7.1.1
+    optionalDependencies:
+      "@myriaddreamin/typst-ts-renderer": 0.7.0-rc2
+      "@myriaddreamin/typst-ts-web-compiler": 0.7.0-rc2
+
   "@radix-ui/react-compose-refs@1.1.2(@types/react@19.2.7)(react@19.2.1)":
     dependencies:
       react: 19.2.1
@@ -3082,6 +3155,8 @@ snapshots:
   hermes-parser@0.25.1:
     dependencies:
       hermes-estree: 0.25.1
+
+  idb@7.1.1: {}
 
   ignore@5.3.2: {}
 
