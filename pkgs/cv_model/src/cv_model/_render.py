@@ -17,16 +17,13 @@ from . import _consts, _models
 def _model2typ(
     model: _models.Resume,
     template_name: _consts.TemplateName,
-    output_path: Path | str,
     render_ctx: _models.RenderCtx = _models.RenderCtx(),
-) -> None:
-    _output_path = Path(output_path)
+) -> str:
     jinja_env = Environment(
         loader=FileSystemLoader(_consts.TEMPLATES_FOLDER), trim_blocks=True
     )
     template = jinja_env.get_template(_consts.TEMPLATE_NAME_MAIN[template_name])
-    with open(_output_path, "w", encoding="utf-8") as f:
-        f.write(template.render({"resume": model, "ctx": render_ctx}))
+    return template.render({"resume": model, "ctx": render_ctx})
 
 
 OutputFormat = Literal["typ", "pdf", "svg", "png", "html"]
@@ -38,6 +35,34 @@ OutputFormat = Literal["typ", "pdf", "svg", "png", "html"]
 - png: Portable Network Graphics
 - html: HyperText Markup Language
 """
+
+
+def generate_typ_fm_model(
+    model: _models.Resume | str,
+    template_name: _consts.TemplateName = "fantastic-cv",
+    render_ctx=_models.RenderCtx(),
+) -> str:
+    if isinstance(model, (str, Path)):
+        _model = _models.Resume.model_validate_json(model)
+    elif isinstance(model, _models.Resume):
+        _model = model
+    else:
+        raise ValueError("src must be either a Resume model or a json string.")
+
+    custom_section_titles = [section.title for section in _model.custom_sections]
+    for section_name in render_ctx.section_order:
+        if section_name in _models.DEFAULT_SECTIONS:
+            continue
+        if section_name not in custom_section_titles:
+            raise ValueError(
+                f"Section '{section_name}' not found in the resume model. "
+                + "Please check the section order."
+            )
+    jinja_env = Environment(
+        loader=FileSystemLoader(_consts.TEMPLATES_FOLDER), trim_blocks=True
+    )
+    template = jinja_env.get_template(_consts.TEMPLATE_NAME_MAIN[template_name])
+    return template.render({"resume": _model, "ctx": render_ctx})
 
 
 @overload
@@ -57,7 +82,7 @@ def generate(
     output_format: OutputFormat,
     template_name: _consts.TemplateName = "fantastic-cv",
     render_ctx: _models.RenderCtx = _models.RenderCtx(),
-) -> bytes: ...
+) -> bytes | str: ...
 
 
 @overload
@@ -130,7 +155,8 @@ def generate(
     with tempfile.TemporaryDirectory() as temp_dir:
         temp_path = Path(temp_dir) / "resume.typ"
 
-        _model2typ(model, template_name, temp_path, render_ctx)
+        typst_script = _model2typ(model, template_name, render_ctx)
+        temp_path.write_text(typst_script, encoding="utf-8")
         # Compile to memory
         if not TYPST_AVAILABLE:
             raise ImportError(

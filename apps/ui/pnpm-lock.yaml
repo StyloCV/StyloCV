@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  "@myriaddreamin/typst.react":
+    hash: a9d08ea2afbd721f2363be52e8797f31168efc9917de8a50111e11fdf43c97c4
+    path: patches/@myriaddreamin__typst.react.patch
+
 importers:
   .:
     dependencies:
@@ -15,7 +20,7 @@ importers:
         version: 0.7.0-rc2
       "@myriaddreamin/typst.react":
         specifier: 0.7.0-rc2
-        version: 0.7.0-rc2(@myriaddreamin/typst-ts-renderer@0.7.0-rc2)(@myriaddreamin/typst.ts@0.7.0-rc2(@myriaddreamin/typst-ts-renderer@0.7.0-rc2)(@myriaddreamin/typst-ts-web-compiler@0.7.0-rc2))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+        version: 0.7.0-rc2(patch_hash=a9d08ea2afbd721f2363be52e8797f31168efc9917de8a50111e11fdf43c97c4)(@myriaddreamin/typst-ts-renderer@0.7.0-rc2)(@myriaddreamin/typst.ts@0.7.0-rc2(@myriaddreamin/typst-ts-renderer@0.7.0-rc2)(@myriaddreamin/typst-ts-web-compiler@0.7.0-rc2))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       "@myriaddreamin/typst.ts":
         specifier: 0.7.0-rc2
         version: 0.7.0-rc2(@myriaddreamin/typst-ts-renderer@0.7.0-rc2)(@myriaddreamin/typst-ts-web-compiler@0.7.0-rc2)
@@ -2567,7 +2572,7 @@ snapshots:
 
   "@myriaddreamin/typst-ts-web-compiler@0.7.0-rc2": {}
 
-  "@myriaddreamin/typst.react@0.7.0-rc2(@myriaddreamin/typst-ts-renderer@0.7.0-rc2)(@myriaddreamin/typst.ts@0.7.0-rc2(@myriaddreamin/typst-ts-renderer@0.7.0-rc2)(@myriaddreamin/typst-ts-web-compiler@0.7.0-rc2))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)":
+  "@myriaddreamin/typst.react@0.7.0-rc2(patch_hash=a9d08ea2afbd721f2363be52e8797f31168efc9917de8a50111e11fdf43c97c4)(@myriaddreamin/typst-ts-renderer@0.7.0-rc2)(@myriaddreamin/typst.ts@0.7.0-rc2(@myriaddreamin/typst-ts-renderer@0.7.0-rc2)(@myriaddreamin/typst-ts-web-compiler@0.7.0-rc2))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)":
     dependencies:
       "@myriaddreamin/typst-ts-renderer": 0.7.0-rc2
       "@myriaddreamin/typst.ts": 0.7.0-rc2(@myriaddreamin/typst-ts-renderer@0.7.0-rc2)(@myriaddreamin/typst-ts-web-compiler@0.7.0-rc2)

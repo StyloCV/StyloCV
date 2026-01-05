@@ -8,27 +8,21 @@ import React, {
 } from "react";
 import type { PyodideInterface } from "pyodide";
 import { loadPyodide, version as pyodideVersion } from "pyodide";
-import * as typst from "@myriaddreamin/typst-ts-web-compiler";
-import type { TypstCompiler } from "@myriaddreamin/typst-ts-web-compiler";
+import {
+  createTypstCompiler,
+  type TypstCompiler,
+  createTypstFontBuilder,
+} from "@myriaddreamin/typst.ts/compiler";
+import typstWasm from "@myriaddreamin/typst-ts-web-compiler/pkg/typst_ts_web_compiler_bg.wasm?url";
+import useFonts from "../hooks/useFonts";
 
 interface WasmContextType {
   pyodide: PyodideInterface | null;
   typstCompiler: TypstCompiler | null;
   isLoading: boolean;
   error: Error | null;
-  renderTypst: (jsonData: string) => Promise<string | Uint8Array | undefined>;
+  renderTypst: (jsonData: string) => Promise<Uint8Array | undefined>;
 }
-
-const loadScript = (src: string): Promise<void> => {
-  return new Promise((resolve, reject) => {
-    const script = document.createElement("script");
-    script.src = src;
-    script.async = true;
-    script.onload = () => resolve();
-    script.onerror = () => reject(new Error(`Failed to load script: ${src}`));
-    document.body.appendChild(script);
-  });
-};
 
 export const WasmContext = createContext<WasmContextType>({
   pyodide: null,
@@ -50,9 +44,10 @@ export const WasmProvider: React.FC<WasmProviderProps> = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
   const initStarted = useRef(false);
+  const { fonts, loading: fontsLoading, error: fontsError } = useFonts();
 
   useEffect(() => {
-    if (initStarted.current) {
+    if (initStarted.current || fontsLoading) {
       return;
     }
     initStarted.current = true;
@@ -60,7 +55,6 @@ export const WasmProvider: React.FC<WasmProviderProps> = ({ children }) => {
     const initialize = async () => {
       try {
         // Initialize Pyodide
-        await loadScript("/pyodide/pyodide.js");
         const pyodideInstance = await loadPyodide({
           indexURL: `https://cdn.jsdelivr.net/pyodide/v${pyodideVersion}/full/`,
         });
@@ -72,15 +66,21 @@ export const WasmProvider: React.FC<WasmProviderProps> = ({ children }) => {
         const wheelFilename = manifest.wheelFile;
         await micropip.install(`/wheels/${wheelFilename}`);
         setPyodide(pyodideInstance);
-        console.log("Pyodide and cv_model loaded successfully.");
 
         // Initialize Typst
-        const compiler = await typst.createCompiler();
+        const compiler = await createTypstCompiler();
         await compiler.init({
-          getModule: () => "/typst-compiler/typst_ts_web_compiler_bg.wasm",
+          getModule: () => typstWasm,
+        });
+        const fontBuilder = await createTypstFontBuilder();
+        await fontBuilder.init();
+        for (const font of fonts) {
+          await fontBuilder.addFontData(new Uint8Array(font.data));
+        }
+        await fontBuilder.build(async (fontResolver) => {
+          compiler.setFonts(fontResolver);
         });
         setTypstCompiler(compiler);
-        console.log("Typst compiler loaded successfully.");
       } catch (err) {
         if (err instanceof Error) {
           setError(err);
@@ -95,7 +95,7 @@ export const WasmProvider: React.FC<WasmProviderProps> = ({ children }) => {
     };
 
     initialize();
-  }, []);
+  }, [fonts, fontsLoading]);
 
   const renderTypst = useCallback(
     async (jsonData: string) => {
@@ -104,33 +104,34 @@ export const WasmProvider: React.FC<WasmProviderProps> = ({ children }) => {
         return;
       }
 
-      console.log("Generating Typst script from JSON...");
       const cvModel = pyodide.pyimport("cv_model");
-      const render = cvModel.get("_render");
-      const models = cvModel.get("_models");
-
-      const resumeModel = models.Resume.model_validate_json(jsonData);
-      const typstScript = render.generate(resumeModel, null, "typ");
-
-      console.log("Compiling Typst script...");
+      const typstScript = cvModel.generate_typ_fm_model(jsonData);
+      typstCompiler.addSource("/main.typ", typstScript);
       const artifact = await typstCompiler.compile({
-        mainContent: typstScript,
+        mainFilePath: "/main.typ",
       });
 
-      console.log("Typst compilation successful.");
-      return artifact;
+      if (artifact.result === undefined) {
+        console.error(
+          "Typst compilation failed. Diagnostics:",
+          artifact.diagnostics,
+        );
+      }
+      typstCompiler.reset();
+      return artifact.result;
     },
     [pyodide, typstCompiler],
   );
 
   const value = { pyodide, typstCompiler, isLoading, error, renderTypst };
 
-  if (isLoading) {
-    return <div>Loading WASM runtimes...</div>;
+  if (isLoading || fontsLoading) {
+    return <div>Loading WASM runtimes and fonts...</div>;
   }
 
-  if (error) {
-    return <div>Error initializing WASM runtimes: {error.message}</div>;
+  const combinedError = error || fontsError;
+  if (combinedError) {
+    return <div>Error initializing WASM runtimes: {combinedError.message}</div>;
   }
 
   return <WasmContext.Provider value={value}>{children}</WasmContext.Provider>;

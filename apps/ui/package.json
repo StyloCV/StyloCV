@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "prepare": "node scripts/build-python.js",
+    "prepare": "node scripts/build-python.js && node scripts/download-fonts.js",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",

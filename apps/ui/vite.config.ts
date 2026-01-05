@@ -29,11 +29,24 @@ export default defineConfig({
           ),
           dest: "typst-compiler",
         },
+        {
+          src: normalizePath(
+            path.resolve(
+              __dirname,
+              "node_modules/@myriaddreamin/typst-ts-renderer/pkg/**",
+            ),
+          ),
+          dest: "typst-renderer",
+        },
       ],
     }),
   ],
   optimizeDeps: {
-    exclude: ["pyodide"],
+    exclude: [
+      "pyodide",
+      "@myriaddreamin/typst-ts-web-compiler",
+      "@myriaddreamin/typst.react",
+    ],
   },
   resolve: {
     alias: {

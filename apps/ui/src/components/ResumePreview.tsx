@@ -1,61 +1,131 @@
 import React, { useState, useEffect } from "react";
-// import { TypstDocument } from "@myriaddreamin/typst.react";
+import { TypstDocument } from "@myriaddreamin/typst.react";
 import { useWasm } from "../hooks/useWasm.tsx";
 
 // A sample JSON data for testing
-const sampleJsonData = JSON.stringify(
-  {
-    first_name: "John",
-    last_name: "Doe",
-    email: "john.doe@example.com",
-    phone: "+1234567890",
-    linkedin: "johndoe",
-    github: "johndoe",
-    website: "johndoe.com",
-    location: "New York, USA",
-    education: [
+const sampleJsonData = JSON.stringify({
+  basics: {
+    name: "John Doe",
+    label: "Programmer",
+    image: "",
+    email: "john@gmail.com",
+    phone: "(912) 555-4321",
+    url: "https://johndoe.com",
+    summary: "A summary of John Doe…",
+    location: {
+      address: "2712 Broadway St",
+      postalCode: "CA 94115",
+      city: "San Francisco",
+      countryCode: "US",
+      region: "California",
+    },
+    profiles: [
       {
-        institution: "University of Example",
-        degree: "Bachelor of Science in Computer Science",
-        start_date: "2018-09-01",
-        end_date: "2022-06-01",
-        highlights: ["Graduated with honors", "Dean's List for 4 semesters"],
+        network: "Twitter",
+        username: "john",
+        url: "https://twitter.com/john",
       },
     ],
-    experience: [
-      {
-        company: "Tech Corp",
-        position: "Software Engineer",
-        start_date: "2022-07-01",
-        end_date: null,
-        highlights: [
-          "Developed and maintained web applications using React and Node.js.",
-          "Collaborated with cross-functional teams to deliver high-quality software.",
-        ],
-      },
-    ],
-    skills: [
-      {
-        category: "Programming Languages",
-        items: ["JavaScript", "TypeScript", "Python"],
-      },
-      {
-        category: "Frameworks",
-        items: ["React", "Node.js", "Express"],
-      },
-    ],
-    projects: [],
-    custom_sections: [],
   },
-  null,
-  2,
-);
+  work: [
+    {
+      name: "Company",
+      position: "President",
+      url: "https://company.com",
+      startDate: "2013-01-01",
+      endDate: "2014-01-01",
+      summary: "Description…",
+      highlights: ["Started the company"],
+    },
+  ],
+  volunteer: [
+    {
+      organization: "Organization",
+      position: "Volunteer",
+      url: "https://organization.com/",
+      startDate: "2012-01-01",
+      endDate: "2013-01-01",
+      summary: "Description…",
+      highlights: ["Awarded 'Volunteer of the Month'"],
+    },
+  ],
+  education: [
+    {
+      institution: "University",
+      url: "https://institution.com/",
+      area: "Software Development",
+      studyType: "Bachelor",
+      startDate: "2011-01-01",
+      endDate: "2013-01-01",
+      score: "4.0",
+      courses: ["DB1101 - Basic SQL"],
+    },
+  ],
+  awards: [
+    {
+      title: "Award",
+      date: "2014-11-01",
+      awarder: "Company",
+      summary: "There is no spoon.",
+    },
+  ],
+  certificates: [
+    {
+      name: "Certificate",
+      date: "2021-11-07",
+      issuer: "Company",
+      url: "https://certificate.com",
+    },
+  ],
+  publications: [
+    {
+      name: "Publication",
+      publisher: "Company",
+      releaseDate: "2014-10-01",
+      url: "https://publication.com",
+      summary: "Description…",
+    },
+  ],
+  skills: [
+    {
+      name: "Web Development",
+      level: "Master",
+      keywords: ["HTML", "CSS", "JavaScript"],
+    },
+  ],
+  languages: [
+    {
+      language: "English",
+      fluency: "Native speaker",
+    },
+  ],
+  interests: [
+    {
+      name: "Wildlife",
+      keywords: ["Ferrets", "Unicorns"],
+    },
+  ],
+  references: [
+    {
+      name: "Jane Doe",
+      reference: "Reference…",
+    },
+  ],
+  projects: [
+    {
+      name: "Project",
+      startDate: "2019-01-01",
+      endDate: "2021-01-01",
+      description: "Description...",
+      highlights: ["Won award at AIHacks 2016"],
+      url: "https://project.com/",
+    },
+  ],
+});
 
 export const ResumePreview: React.FC = () => {
   const { renderTypst, isLoading } = useWasm();
-  const [artifact, setArtifact] = useState<string | Uint8Array | undefined>(
-    undefined,
-  );
+  const [artifact, setArtifact] = useState<Uint8Array | undefined>(undefined);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -77,8 +147,5 @@ export const ResumePreview: React.FC = () => {
     return <div>Generating resume preview...</div>;
   }
 
-  return <div>Done!</div>;
-  {
-    /* return <TypstDocument artifact={artifact} />; */
-  }
+  return <TypstDocument fill="#ffffff" artifact={artifact} />;
 };

@@ -182,44 +182,18 @@ export function ResumeEditor() {
   };
 
   return (
-    <div className="grid h-screen w-full grid-cols-2 gap-4 p-4">
-      {/* Left Panel: Editor */}
-      <div className="flex flex-col gap-4">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold">Resume JSON</h2>
-          <Button onClick={handleRender}>Render PDF</Button>
-        </div>
-        <Textarea
-          value={jsonText}
-          onChange={(e) => setJsonText(e.target.value)}
-          className="h-full w-full resize-none font-mono"
-          placeholder="Paste your resume JSON here..."
-        />
-        {error && <p className="text-sm text-red-500">{error}</p>}
+    <div className="flex flex-col gap-4">
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold">Resume JSON</h2>
+        <Button onClick={handleRender}>Render PDF</Button>
       </div>
-
-      {/* Right Panel: Preview */}
-      <div className="flex flex-col">
-        <h2 className="mb-4 text-2xl font-bold">Preview</h2>
-        <div className="flex-1 rounded-md border">
-          {pdfUrl ? (
-            <object
-              data={pdfUrl}
-              type="application/pdf"
-              className="h-full w-full"
-            >
-              <p>
-                Your browser does not support PDF previews. You can{" "}
-                <a href={pdfUrl}>download the PDF</a> instead.
-              </p>
-            </object>
-          ) : (
-            <div className="flex h-full items-center justify-center text-muted-foreground">
-              <p>Click "Render PDF" to see the preview</p>
-            </div>
-          )}
-        </div>
-      </div>
+      <Textarea
+        value={jsonText}
+        onChange={(e) => setJsonText(e.target.value)}
+        className="h-full w-full resize-none font-mono"
+        placeholder="Paste your resume JSON here..."
+      />
+      {error && <p className="text-sm text-red-500">{error}</p>}
     </div>
   );
 }
