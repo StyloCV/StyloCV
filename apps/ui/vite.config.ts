@@ -2,10 +2,52 @@ import path from "path";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { viteStaticCopy } from "vite-plugin-static-copy";
+import { normalizePath } from "vite";
 
+normalizePath(path.resolve(__dirname, "./foo")); // C:/project/foo
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  base: "./",
+  plugins: [
+    react(),
+    tailwindcss(),
+    viteStaticCopy({
+      targets: [
+        {
+          src: normalizePath(
+            path.resolve(__dirname, "node_modules/pyodide/**"),
+          ),
+          dest: "pyodide",
+        },
+        {
+          src: normalizePath(
+            path.resolve(
+              __dirname,
+              "node_modules/@myriaddreamin/typst-ts-web-compiler/pkg/**",
+            ),
+          ),
+          dest: "typst-compiler",
+        },
+        {
+          src: normalizePath(
+            path.resolve(
+              __dirname,
+              "node_modules/@myriaddreamin/typst-ts-renderer/pkg/**",
+            ),
+          ),
+          dest: "typst-renderer",
+        },
+      ],
+    }),
+  ],
+  optimizeDeps: {
+    exclude: [
+      "pyodide",
+      "@myriaddreamin/typst-ts-web-compiler",
+      "@myriaddreamin/typst.react",
+    ],
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

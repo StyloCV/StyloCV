@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Exclude downloaded font files
+/public/fonts
+/public/wheels

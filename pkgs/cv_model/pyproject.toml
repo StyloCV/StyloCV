@@ -12,12 +12,12 @@ license = "MIT"
 license-files = []
 keywords = []
 classifiers = []
-dependencies = [
-    "email-validator>=2.3.0",
-    "jinja2",
- "pydantic",
- "typst",
-]
+# typst python package is not available as a web assembly compatible package yet
+# we will simply run typst commands using subprocess in the UI app
+dependencies = ["jinja2", "pydantic"]
+
+[project.optional-dependencies]
+backend = ["typst"]
 
 [dependency-groups]
 tests = ["pytest", "pytest-cov"]

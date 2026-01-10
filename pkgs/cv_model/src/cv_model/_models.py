@@ -4,10 +4,11 @@ import datetime
 import re
 from typing import Any, Literal
 
-from pydantic import AnyUrl, BaseModel, EmailStr, Field, computed_field
+from pydantic import AnyUrl, BaseModel, Field, computed_field
 
 from cv_model import _consts
 
+EmailStr = str
 Iso8601 = datetime.date | Literal["Present"]
 
 State = str  # two character abbreviation for US states, e.g. CA, NY
