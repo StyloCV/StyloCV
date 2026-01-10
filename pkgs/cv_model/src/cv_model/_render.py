@@ -42,6 +42,16 @@ def generate_typ_fm_model(
     template_name: _consts.TemplateName = "fantastic-cv",
     render_ctx=_models.RenderCtx(),
 ) -> str:
+    """Generates a Typst script from a Resume model or JSON string.
+
+    Args:
+        model: The Resume model or JSON string.
+        template_name: The name of the template to use. Defaults to "fantastic-cv".
+        render_ctx: The rendering context with additional styling options.
+    Returns:
+        The generated Typst script as a string.
+
+    """
     if isinstance(model, (str, Path)):
         _model = _models.Resume.model_validate_json(model)
     elif isinstance(model, _models.Resume):
@@ -82,7 +92,7 @@ def generate(
     output_format: OutputFormat,
     template_name: _consts.TemplateName = "fantastic-cv",
     render_ctx: _models.RenderCtx = _models.RenderCtx(),
-) -> bytes | str: ...
+) -> bytes: ...
 
 
 @overload
@@ -149,7 +159,12 @@ def generate(
         # This case doesn't make sense for in-memory generation
         if output_path is None:
             raise ValueError("output_path must be provided for typ output.")
-        _model2typ(model, template_name, output_path, render_ctx)
+        typst_script = _model2typ(model, template_name, render_ctx)
+        _output_path = Path(output_path)
+        if not _output_path.name.endswith(".typ"):
+            raise ValueError(f"output_path must end with .typ. Got: {output_path}")
+        _output_path.parent.mkdir(parents=True, exist_ok=True)
+        _output_path.write_text(typst_script, encoding="utf-8")
         return None
 
     with tempfile.TemporaryDirectory() as temp_dir:

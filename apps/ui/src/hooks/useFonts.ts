@@ -14,6 +14,11 @@ const useFonts = () => {
       try {
         // The manifest is now a simple array of strings (font paths).
         const response = await fetch("/fonts/manifest.json");
+        if (!response.ok) {
+          throw new Error(
+            `Failed to fetch font manifest: ${response.status} ${response.statusText}`,
+          );
+        }
         const fontPaths: string[] = await response.json();
 
         // Fetch each font file and get its ArrayBuffer.
